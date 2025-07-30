@@ -219,3 +219,60 @@ function isPremiumSubscription(level: SubscriptionLevel): boolean{
 getOrderMessage("new")
 isPremiumSubscription(SubscriptionLevel.Enterprise)
 
+interface Productt {
+    id: number;
+    name: string;
+    price: number;
+    tags?: string[];
+}
+
+function formattedProduct (product: Productt): string {
+    const productDescription = `The name of Product is ${product.name} & it's price is ${product.price}`;
+    return `${productDescription}`;
+}
+
+console.log(formattedProduct({ id: 2, name: 'ali', price: 29 }));
+const amount: number = 126524.65;
+
+const date: Date = new Date();
+const formattedAmount : string = new Intl.NumberFormat('en-US', {style: "currency" , currency: "USD"} ).format(amount);
+
+const formattedDate: string = new Intl.DateTimeFormat('en-US', {year: "numeric", month: "numeric", day: "numeric"}).format(date);
+console.log(formattedDate);
+console.log(formattedAmount);
+
+
+//writing the the utility function to check if the string is the valid phone number or not.
+function isValidNumberComprehensive(num: string): boolean {
+    // Regex for Pakistani numbers:
+    // - Starts with 03XX or +923XX
+    // - Allows optional spaces or hyphens as separators
+    // - Total of 10 digits after 03 or 9 digits after +923
+    const comprehensivePakistaniRegex = /^((\+92)?(0)?3[0-4][0-9]( )?[- ]?\d{7})$/;
+    // Breaking down the regex:
+    // ^                                 - Start of the string
+    // (                                 - Start of main capturing group
+    //   (\+92)?                         - Optional +92 prefix
+    //   (0)?                            - Optional 0 after +92 (e.g., +920300... is less common but possible)
+    //   3[0-4][0-9]                     - The '3' followed by the network code digit (0-4) and next digit
+    //   [ - ]?                           - Optional hyphen or space
+    //   \d{7}                           - The remaining 7 digits
+    // )                                 - End of main capturing group
+    // $                                 - End of the string
+
+    return comprehensivePakistaniRegex.test(num);
+}
+
+console.log("\n--- Comprehensive Pakistani Number Validation ---");
+console.log("031-82552591:", isValidNumberComprehensive("031-82552591"));     // true
+console.log("03001234567:", isValidNumberComprehensive("03001234567"));       // true
+console.log("+923331234567:", isValidNumberComprehensive("+923331234567"));   // true
+console.log("+92 321 1234567:", isValidNumberComprehensive("+92 321 1234567")); // true
+console.log("0345 9876543:", isValidNumberComprehensive("0345 9876543"));     // true
+console.log("021-1234567:", isValidNumberComprehensive("021-1234567"));       // false
+console.log("123:", isValidNumberComprehensive("123"));                     // false
+console.log("0300-123456:", isValidNumberComprehensive("0300-123456"));     // false (too short)
+
+// ✅ Write a type guard to differentiate between Guest and RegisteredUser
+
+
